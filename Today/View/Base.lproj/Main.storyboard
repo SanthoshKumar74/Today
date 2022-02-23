@@ -26,7 +26,7 @@
                                         <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zMq-Pl-aeX">
                                             <rect key="frame" x="20" y="27.5" width="44" height="44"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="44" id="U1C-sS-28T"/>
+                                                <constraint firstAttribute="height" constant="44" id="U1C-sS-28T"/>
                                                 <constraint firstAttribute="width" secondItem="zMq-Pl-aeX" secondAttribute="height" multiplier="1:1" id="vea-Iw-Qv4"/>
                                             </constraints>
                                             <state key="normal" title="Button"/>
