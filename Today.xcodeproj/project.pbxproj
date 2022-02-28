@@ -18,6 +18,10 @@
 		7F96569627C7325100D67B28 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F96569527C7325100D67B28 /* DetailViewController.swift */; };
 		7F96569827C74CF800D67B28 /* ReminderListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F96569727C74CF800D67B28 /* ReminderListDataSource.swift */; };
 		7F96569A27C76C0C00D67B28 /* ReminderDetailViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F96569927C76C0C00D67B28 /* ReminderDetailViewDataSource.swift */; };
+		7F96569C27C7A40E00D67B28 /* EditTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F96569B27C7A40E00D67B28 /* EditTitleCell.swift */; };
+		7F96569E27C7A41800D67B28 /* EditDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F96569D27C7A41800D67B28 /* EditDateCell.swift */; };
+		7F9656A027C7A42B00D67B28 /* EditNotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F96569F27C7A42B00D67B28 /* EditNotesCell.swift */; };
+		7F9656A227C8A16A00D67B28 /* ReminderDetailEditDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9656A127C8A16A00D67B28 /* ReminderDetailEditDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,10 @@
 		7F96569527C7325100D67B28 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		7F96569727C74CF800D67B28 /* ReminderListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderListDataSource.swift; sourceTree = "<group>"; };
 		7F96569927C76C0C00D67B28 /* ReminderDetailViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderDetailViewDataSource.swift; sourceTree = "<group>"; };
+		7F96569B27C7A40E00D67B28 /* EditTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTitleCell.swift; sourceTree = "<group>"; };
+		7F96569D27C7A41800D67B28 /* EditDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDateCell.swift; sourceTree = "<group>"; };
+		7F96569F27C7A42B00D67B28 /* EditNotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNotesCell.swift; sourceTree = "<group>"; };
+		7F9656A127C8A16A00D67B28 /* ReminderDetailEditDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderDetailEditDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +92,7 @@
 				7F96568E27C604B100D67B28 /* Remainder .swift */,
 				7F96569727C74CF800D67B28 /* ReminderListDataSource.swift */,
 				7F96569927C76C0C00D67B28 /* ReminderDetailViewDataSource.swift */,
+				7F9656A127C8A16A00D67B28 /* ReminderDetailEditDataSource.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -102,6 +111,9 @@
 				7F96567E27C5F64A00D67B28 /* RemainderListView.swift */,
 				7F96569327C6236C00D67B28 /* RemainderListCell.swift */,
 				7F96569527C7325100D67B28 /* DetailViewController.swift */,
+				7F96569B27C7A40E00D67B28 /* EditTitleCell.swift */,
+				7F96569D27C7A41800D67B28 /* EditDateCell.swift */,
+				7F96569F27C7A42B00D67B28 /* EditNotesCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -179,12 +191,16 @@
 			files = (
 				7F96567F27C5F64A00D67B28 /* RemainderListView.swift in Sources */,
 				7F96567B27C5F64A00D67B28 /* AppDelegate.swift in Sources */,
+				7F96569C27C7A40E00D67B28 /* EditTitleCell.swift in Sources */,
 				7F96568F27C604B100D67B28 /* Remainder .swift in Sources */,
 				7F96569627C7325100D67B28 /* DetailViewController.swift in Sources */,
 				7F96569A27C76C0C00D67B28 /* ReminderDetailViewDataSource.swift in Sources */,
 				7F96569427C6236C00D67B28 /* RemainderListCell.swift in Sources */,
+				7F9656A027C7A42B00D67B28 /* EditNotesCell.swift in Sources */,
+				7F96569E27C7A41800D67B28 /* EditDateCell.swift in Sources */,
 				7F96567D27C5F64A00D67B28 /* SceneDelegate.swift in Sources */,
 				7F96569827C74CF800D67B28 /* ReminderListDataSource.swift in Sources */,
+				7F9656A227C8A16A00D67B28 /* ReminderDetailEditDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

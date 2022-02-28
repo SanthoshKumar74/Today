@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ReminderDetailViewDataSource: NSObject{
+class ReminderDetailViewDataSource: NSObject
+{
     
     static let reminderDetailCellIdentifier = "ReminderDetailCell"
     
@@ -17,7 +18,8 @@ class ReminderDetailViewDataSource: NSObject{
         case notes
         case time
         
-        static let dateFormatter : DateFormatter = {
+        static let dateFormatter : DateFormatter =
+        {
             let formatter = DateFormatter()
             formatter.timeStyle = .none
             formatter.dateStyle = .long
@@ -25,7 +27,9 @@ class ReminderDetailViewDataSource: NSObject{
         }()
     
         
-        static let timeFormatter : DateFormatter = {
+        static let timeFormatter : DateFormatter =
+        
+        {
             let formatter = DateFormatter()
             formatter.timeStyle = .short
             formatter.dateStyle = .none
@@ -79,11 +83,16 @@ class ReminderDetailViewDataSource: NSObject{
 //MARK: - DataSource Methods
 extension ReminderDetailViewDataSource:UITableViewDataSource{
 
- func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+ func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    
+{
     return reminderRow.allCases.count
 }
+    
 
- func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    
+{
     let cell = tableView.dequeueReusableCell(withIdentifier: Self.reminderDetailCellIdentifier, for: indexPath)
     let row = reminderRow(rawValue: indexPath.row)
     cell.imageView?.image = row?.cellImage
