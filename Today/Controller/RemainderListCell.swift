@@ -24,7 +24,7 @@ class RemainderListCell:UITableViewCell{
     func configureAction(action:@escaping DoneButtonAction,title: String,date:String,isComplete:Bool){
         doneButtonAction = action
         titleLabel.text = title
-        dateLabel.text = date.description
+        dateLabel.text = date
         let image = isComplete ? UIImage(systemName: "circle.fill") : UIImage(systemName: "circle")
         doneButton.setImage(image, for: .normal)
     }
@@ -33,6 +33,16 @@ class RemainderListCell:UITableViewCell{
         doneButtonAction?()
         
     }
+    
+    
+     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        print("Edited")
+    }
+
     
 }
 

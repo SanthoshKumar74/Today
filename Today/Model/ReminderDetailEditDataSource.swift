@@ -8,6 +8,8 @@
 import UIKit
 
 class ReminderDetailEditDataSource:NSObject{
+    
+        typealias ReminderEditAction = (Reminder)-> Void
     enum ReminderSection:Int, CaseIterable{
         case title
         case date
@@ -48,13 +50,22 @@ class ReminderDetailEditDataSource:NSObject{
     }
     
     static var dateLabelCellIdentifier: String {
-          return ReminderSection.date.cellIdentifier(for: 0)
+        return ReminderSection.date.cellIdentifier(for: 0)
       }
 
     var reminder:Reminder
+    private var reminderEditAction:ReminderEditAction?
     
-    init(reminder:Reminder){
+    private lazy var formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .full
+        formatter.timeStyle = .short
+        return formatter
+    }()
+    
+    init(reminder:Reminder,editAction:@escaping ReminderEditAction){
         self.reminder = reminder
+        self.reminderEditAction = editAction
     }
     
     func dequeAndConfigureCell(for indexPath:IndexPath,from tableView:UITableView)-> UITableViewCell{
@@ -66,10 +77,14 @@ class ReminderDetailEditDataSource:NSObject{
         let identifier = section.cellIdentifier(for: indexPath.row)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         
-        switch section {
+        switch section
+        {
         case .title:
             if let titleCell = cell as? EditTitleCell {
-                titleCell.configure(title: reminder.title)
+                titleCell.configure(title: reminder.title){ title in
+                    self.reminder.title = title
+                    self.reminderEditAction?(self.reminder)
+                }
             }
         case .date:
                     if indexPath.row == 0{
@@ -80,14 +95,22 @@ class ReminderDetailEditDataSource:NSObject{
                 {
                     if let dateCell = cell as? EditDateCell
                     {
-                        dateCell.configure(date: reminder.date)
+                        dateCell.configure(date: reminder.date){ date in
+                            self.reminder.date = date
+                            self.reminderEditAction?(self.reminder)
+                            let indexPath = IndexPath(row: 0, section: section.rawValue)
+                            tableView.reloadRows(at: [indexPath], with: .automatic)
+                        }
                     }
                 }
             
         case .notes:
             if let notesCell = cell as? EditNotesCell
             {
-                notesCell.configure(notes: reminder.notes)
+                    notesCell.configure(notes: reminder.notes) { notes in
+                        self.reminder.notes = notes
+                        self.reminderEditAction?(self.reminder)
+                    }
             }
         }
         return cell

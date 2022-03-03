@@ -12,7 +12,7 @@ class ReminderDetailViewDataSource: NSObject
     
     static let reminderDetailCellIdentifier = "ReminderDetailCell"
     
-    enum reminderRow:Int, CaseIterable{
+    enum ReminderRow:Int, CaseIterable{
         case title
         case date
         case notes
@@ -43,7 +43,10 @@ class ReminderDetailViewDataSource: NSObject
         case .title:
             return reminder?.title
         case .date:
-            guard let date = reminder?.date else{return nil}
+            guard let date = reminder?.date else { return nil }
+            if Locale.current.calendar.isDateInToday(date) {
+                return NSLocalizedString("Today", comment: "Today for date description")
+            }
             return Self.dateFormatter.string(from: date)
         case .time:
             guard let time = reminder?.date else{return nil}
@@ -86,7 +89,7 @@ extension ReminderDetailViewDataSource:UITableViewDataSource{
  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     
 {
-    return reminderRow.allCases.count
+    return ReminderRow.allCases.count
 }
     
 
@@ -94,7 +97,7 @@ extension ReminderDetailViewDataSource:UITableViewDataSource{
     
 {
     let cell = tableView.dequeueReusableCell(withIdentifier: Self.reminderDetailCellIdentifier, for: indexPath)
-    let row = reminderRow(rawValue: indexPath.row)
+    let row = ReminderRow(rawValue: indexPath.row)
     cell.imageView?.image = row?.cellImage
     cell.textLabel?.text = row?.displayText(for: reminder)
     return cell
