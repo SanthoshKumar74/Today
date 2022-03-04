@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import CoreData
 
 class DetailViewController:UITableViewController{
     
-    typealias ReminderChangeAction = (Reminder)-> Void
-    private var reminder:Reminder?
-    private var tempReminder:Reminder?
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    typealias ReminderChangeAction = (Reminderlist)-> Void
+    private var reminder:Reminderlist?
+    private var tempReminder:Reminderlist?
     private var dataSource:UITableViewDataSource?
     private var reminderEditAction:ReminderChangeAction?
     private var reminderAddAction:ReminderChangeAction?
@@ -27,7 +30,7 @@ class DetailViewController:UITableViewController{
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: ReminderDetailEditDataSource.dateLabelCellIdentifier)
     }
-    func configure(reminder:Reminder, isNew:Bool=false, addAction:ReminderChangeAction?=nil,editAction:ReminderChangeAction?=nil){
+    func configure(reminder:Reminderlist, isNew:Bool=false, addAction:ReminderChangeAction?=nil,editAction:ReminderChangeAction?=nil){
         self.reminder = reminder
         self.isNew = isNew
         self.reminderAddAction = addAction
@@ -37,7 +40,7 @@ class DetailViewController:UITableViewController{
         }
     }
     
-    fileprivate func transitionToViewModel(_ reminder:Reminder)
+    fileprivate func transitionToViewModel(_ reminder:Reminderlist)
     {
         if isNew {
             let addReminder = tempReminder ?? reminder

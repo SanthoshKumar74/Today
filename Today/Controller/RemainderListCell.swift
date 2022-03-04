@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 
 //Table View Cell Actions and Outlets.
@@ -33,16 +34,6 @@ class RemainderListCell:UITableViewCell{
         doneButtonAction?()
         
     }
-    
-    
-     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-    
-     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        print("Edited")
-    }
-
     
 }
 

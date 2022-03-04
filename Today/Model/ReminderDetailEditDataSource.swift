@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import CoreData
 
 class ReminderDetailEditDataSource:NSObject{
     
-        typealias ReminderEditAction = (Reminder)-> Void
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    typealias ReminderEditAction = (Reminderlist)-> Void
     enum ReminderSection:Int, CaseIterable{
         case title
         case date
@@ -53,7 +56,7 @@ class ReminderDetailEditDataSource:NSObject{
         return ReminderSection.date.cellIdentifier(for: 0)
       }
 
-    var reminder:Reminder
+    var reminder:Reminderlist
     private var reminderEditAction:ReminderEditAction?
     
     private lazy var formatter: DateFormatter = {
@@ -63,8 +66,10 @@ class ReminderDetailEditDataSource:NSObject{
         return formatter
     }()
     
-    init(reminder:Reminder,editAction:@escaping ReminderEditAction){
-        self.reminder = reminder
+    init(reminder:Reminderlist,editAction:@escaping ReminderEditAction){
+        var remin = Reminderlist(context: context)
+        remin = reminder
+        self.reminder = remin
         self.reminderEditAction = editAction
     }
     
@@ -81,22 +86,24 @@ class ReminderDetailEditDataSource:NSObject{
         {
         case .title:
             if let titleCell = cell as? EditTitleCell {
-                titleCell.configure(title: reminder.title){ title in
+                titleCell.configure(title: reminder.title!){ title in
                     self.reminder.title = title
+                    try! self.context.save()
                     self.reminderEditAction?(self.reminder)
                 }
             }
         case .date:
                     if indexPath.row == 0{
-                        cell.textLabel?.text = reminder.date.description
+                        cell.textLabel?.text = reminder.date?.description
                         
                     }
                   else
                 {
                     if let dateCell = cell as? EditDateCell
                     {
-                        dateCell.configure(date: reminder.date){ date in
+                        dateCell.configure(date: reminder.date!){ date in
                             self.reminder.date = date
+                            try! self.context.save()
                             self.reminderEditAction?(self.reminder)
                             let indexPath = IndexPath(row: 0, section: section.rawValue)
                             tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -140,6 +147,10 @@ extension ReminderDetailEditDataSource:UITableViewDataSource{
             fatalError("Section Index out of range")
         }
         return section.displayText
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return false
     }
 }
 

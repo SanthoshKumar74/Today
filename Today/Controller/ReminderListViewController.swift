@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import CoreData
 
 class ReminderListViewController: UITableViewController {
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    
     private var reminderListDataSource:ReminderListDataSource?
     
     static let showDetailViewSegue = "ShowDetailViewSegue"
@@ -31,7 +36,8 @@ class ReminderListViewController: UITableViewController {
         if segue.identifier == Self.showDetailViewSegue,
            let destination = segue.destination as? DetailViewController,
            let cell = sender as? UITableViewCell,
-           let indexPath = tableView.indexPath(for: cell) {
+           let indexPath = tableView.indexPath(for: cell)
+        {
             let rowIndex = indexPath.row
             
             guard let reminder = reminderListDataSource?.reminder(at: rowIndex) else {
@@ -47,8 +53,11 @@ class ReminderListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        reminderListDataSource?.retriveData()
         reminderListDataSource = ReminderListDataSource()
         tableView.dataSource = reminderListDataSource
+    
         tableView.reloadData()
     }
     
@@ -73,9 +82,16 @@ class ReminderListViewController: UITableViewController {
     private func addReminder() {
         let storyboard = UIStoryboard(name: Self.mainStoryBoard, bundle: nil)
         let detailViewController: DetailViewController = storyboard.instantiateViewController(identifier: Self.detailViewControllerIdentifier)
-        let reminder = Reminder(id: UUID().uuidString, title: "New Reminder", date: Date())
+        let reminder = Reminderlist(context: context)
+        reminder.title = "New Reminder"
+        reminder.id = UUID().uuidString
+        reminder.notes = ""
+        reminder.date = Date()
+
+        
         detailViewController.configure(reminder: reminder, isNew: true, addAction: { reminder in
             if let index = self.reminderListDataSource?.add(reminder) {
+                try! self.context.save()
                 self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
             }
         })

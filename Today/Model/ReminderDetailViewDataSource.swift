@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ReminderDetailViewDataSource: NSObject
 {
@@ -36,7 +37,7 @@ class ReminderDetailViewDataSource: NSObject
             return formatter
         }()
     
-    func displayText(for reminder:Reminder?)-> String?
+    func displayText(for reminder:Reminderlist?)-> String?
     {
         switch self
         {
@@ -72,9 +73,9 @@ class ReminderDetailViewDataSource: NSObject
         }
         
     }
-    private var reminder: Reminder
+    private var reminder: Reminderlist
 
-        init(reminder: Reminder) {
+        init(reminder: Reminderlist) {
             self.reminder = reminder
             super.init()
         }

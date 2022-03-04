@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import CoreData
 
 class ReminderListDataSource: NSObject{
     private lazy var timeFormatter = RelativeDateTimeFormatter()
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     enum Filter:Int{
         case today
@@ -30,35 +33,49 @@ class ReminderListDataSource: NSObject{
     }
     
     var filter:Filter = .today
-
-    var filteredReminders: [Reminder]
+    
+    var reminderList:[Reminderlist] = []
+        
+    
+    
+    var filteredReminders: [Reminderlist]
     {
-        return Reminder.testData.filter { filter.shouldInclude(date: $0.date) }.sorted { $0.date < $1.date }
+        return reminderList.filter { filter.shouldInclude(date: $0.date!) }.sorted { $0.date! < $1.date! }
     }
     
-    func update(_ reminder: Reminder, at row: Int)
-    {
-        let index = self.index(for: row)
-                Reminder.testData[index] = reminder
-    }
     
-    func reminder(at row: Int) -> Reminder {
-
-        return filteredReminders[row]
-    }
-    //To-Add-Remainder
-    func add(_ reminder: Reminder)-> Int? {
-        Reminder.testData.insert(reminder, at: 0)
-        return filteredReminders.firstIndex(where: { $0.id == reminder.id })
-    }
-    //Filter
     func index(for filteredIndex: Int) -> Int {
             let filteredReminder = filteredReminders[filteredIndex]
-            guard let index = Reminder.testData.firstIndex(where: { $0.id == filteredReminder.id }) else {
+            guard let index = reminderList.firstIndex(where: { $0.id == filteredReminder.id }) else {
                 fatalError("Couldn't retrieve index in source array")
             }
             return index
         }
+    
+    func update(_ reminder: Reminderlist, at row: Int)
+    {
+        let index = self.index(for: row)
+               reminderList[index] = reminder
+    }
+    
+    
+    func reminder(at row: Int) -> Reminderlist {
+        return filteredReminders[row]
+    }
+    //To-Add-Remainder
+    func add(_ reminder: Reminderlist)-> Int? {
+        var remin = Reminderlist(context: context)
+        remin = reminder
+        reminderList.insert(remin, at: 0)
+        try! context.save()
+        return filteredReminders.firstIndex(where: { $0.id == reminder.id })
+    }
+    
+    
+    func retriveData()
+    {
+        self.reminderList = try! context.fetch(Reminderlist.fetchRequest())
+    }
 }
 
 extension ReminderListDataSource:UITableViewDataSource{
@@ -81,29 +98,25 @@ extension ReminderListDataSource:UITableViewDataSource{
             
             let currentReminder =  reminder(at: indexPath.row)
             let action = {
-                var modifiedReminder = currentReminder
+                let modifiedReminder = currentReminder
                 modifiedReminder.isComplete.toggle()
                 self.update(modifiedReminder, at: indexPath.row)
                 tableView.reloadRows(at: [indexPath], with: .none)
             }
-            let dateText = currentReminder.dueDateTimeText(for: filter)
-            cell.configureAction(action: action,title: currentReminder.title,date: dateText,isComplete: currentReminder.isComplete)
+           // let dateText = currentReminder.dueDateTimeText(for: filter)
+            cell.configureAction(action: action,title: currentReminder.title!,date: currentReminder.date!.description,isComplete: currentReminder.isComplete)
             
             return cell
         }
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+       return .delete
+   }
+   
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+       print("Edited")
+   }
     
-//     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-//        return .delete
-//    }
-//
-//     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//         tableView.beginUpdates()
-//         Reminder.testData.remove(at: indexPath.row)
-//         tableView.reloadData()
-//         tableView.endUpdates()
-//    }
-
     }
 
 extension Reminder {
