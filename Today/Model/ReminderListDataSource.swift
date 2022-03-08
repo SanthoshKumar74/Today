@@ -86,6 +86,8 @@ class ReminderListDataSource: NSObject{
         self.reminderList = try! context.fetch(fetchRequest) as! [Reminderlist]
         print("Total data count \(reminderList.count)")
         print(filteredReminders.count)
+        //let VC = ReminderListViewController()
+       // VC.tableView.reloadData()
     }
   
 }
@@ -117,7 +119,7 @@ extension ReminderListDataSource:UITableViewDataSource{
                 print("Cell for row")
                 self.retriveData()
                 self.update(modifiedReminder, at: indexPath.row)
-                //tableView.reloadRows(at: [indexPath], with: .none)
+                tableView.reloadData()
             }
            // let dateText = currentReminder.dueDateTimeText(for: filter)
             cell.configureAction(action: action,title: currentReminder.title!,date: currentReminder.date!.description,isComplete: currentReminder.isComplete)

@@ -55,12 +55,9 @@ class ReminderListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
-        reminderListDataSource?.retriveData()
         reminderListDataSource = ReminderListDataSource()
         tableView.dataSource = reminderListDataSource
-    
+        reminderListDataSource?.retriveData()
         tableView.reloadData()
     }
     
