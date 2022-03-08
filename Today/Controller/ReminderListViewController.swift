@@ -44,8 +44,10 @@ class ReminderListViewController: UITableViewController {
                 fatalError("Couldn't find data source for reminder list.")
             }
             destination.configure(reminder: reminder, editAction: { reminder in
+                print("Seque")
+                self.reminderListDataSource?.retriveData()
                 self.reminderListDataSource?.update(reminder, at: rowIndex)
-                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+               // self.tableView.reloadRows(at: [indexPath], with: .automatic)
                 self.tableView.reloadData()
             })
         }
@@ -53,6 +55,7 @@ class ReminderListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         reminderListDataSource?.retriveData()
         reminderListDataSource = ReminderListDataSource()

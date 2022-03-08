@@ -40,11 +40,19 @@ class ReminderListDataSource: NSObject{
     
     var filteredReminders: [Reminderlist]
     {
-        return reminderList.filter { filter.shouldInclude(date: $0.date!) }.sorted { $0.date! < $1.date! }
+        get{
+            return reminderList.filter { filter.shouldInclude(date: $0.date!) }.sorted { $0.date! < $1.date! }
+        }
+        set{
+            
+        }
     }
     
     
     func index(for filteredIndex: Int) -> Int {
+       
+        print("Filtered reminders count\(filteredReminders.count)")
+        print("index \(filteredIndex)")
             let filteredReminder = filteredReminders[filteredIndex]
             guard let index = reminderList.firstIndex(where: { $0.id == filteredReminder.id }) else {
                 fatalError("Couldn't retrieve index in source array")
@@ -54,6 +62,7 @@ class ReminderListDataSource: NSObject{
     
     func update(_ reminder: Reminderlist, at row: Int)
     {
+        print(reminder)
         let index = self.index(for: row)
                reminderList[index] = reminder
     }
@@ -63,19 +72,22 @@ class ReminderListDataSource: NSObject{
         return filteredReminders[row]
     }
     //To-Add-Remainder
-    func add(_ reminder: Reminderlist)-> Int? {
-        var remin = Reminderlist(context: context)
-        remin = reminder
-        reminderList.insert(remin, at: 0)
+    func add(_ reminder: Reminderlist)-> Int?{
+        reminderList.insert(reminder, at: 0)
         try! context.save()
         return filteredReminders.firstIndex(where: { $0.id == reminder.id })
     }
     
-    
     func retriveData()
     {
-        self.reminderList = try! context.fetch(Reminderlist.fetchRequest())
+        print("Data Retrived")
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "Reminderlist")
+        self.reminderList = try! context.fetch(fetchRequest) as! [Reminderlist]
+        print("Total data count \(reminderList.count)")
+        print(filteredReminders.count)
     }
+  
 }
 
 extension ReminderListDataSource:UITableViewDataSource{
@@ -98,10 +110,14 @@ extension ReminderListDataSource:UITableViewDataSource{
             
             let currentReminder =  reminder(at: indexPath.row)
             let action = {
-                let modifiedReminder = currentReminder
+                var modifiedReminder = Reminderlist()
+                 modifiedReminder = currentReminder
                 modifiedReminder.isComplete.toggle()
+                try! self.context.save()
+                print("Cell for row")
+                self.retriveData()
                 self.update(modifiedReminder, at: indexPath.row)
-                tableView.reloadRows(at: [indexPath], with: .none)
+                //tableView.reloadRows(at: [indexPath], with: .none)
             }
            // let dateText = currentReminder.dueDateTimeText(for: filter)
             cell.configureAction(action: action,title: currentReminder.title!,date: currentReminder.date!.description,isComplete: currentReminder.isComplete)
@@ -116,6 +132,8 @@ extension ReminderListDataSource:UITableViewDataSource{
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
        print("Edited")
    }
+    
+  
     
     }
 

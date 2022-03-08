@@ -10,7 +10,6 @@ import CoreData
 
 class DetailViewController:UITableViewController{
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     typealias ReminderChangeAction = (Reminderlist)-> Void
     private var reminder:Reminderlist?
@@ -31,6 +30,7 @@ class DetailViewController:UITableViewController{
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: ReminderDetailEditDataSource.dateLabelCellIdentifier)
     }
     func configure(reminder:Reminderlist, isNew:Bool=false, addAction:ReminderChangeAction?=nil,editAction:ReminderChangeAction?=nil){
+        print("NewItem")
         self.reminder = reminder
         self.isNew = isNew
         self.reminderAddAction = addAction

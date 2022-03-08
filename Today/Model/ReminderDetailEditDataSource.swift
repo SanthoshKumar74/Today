@@ -67,9 +67,7 @@ class ReminderDetailEditDataSource:NSObject{
     }()
     
     init(reminder:Reminderlist,editAction:@escaping ReminderEditAction){
-        var remin = Reminderlist(context: context)
-        remin = reminder
-        self.reminder = remin
+        self.reminder = reminder
         self.reminderEditAction = editAction
     }
     
@@ -103,8 +101,8 @@ class ReminderDetailEditDataSource:NSObject{
                     {
                         dateCell.configure(date: reminder.date!){ date in
                             self.reminder.date = date
-                            try! self.context.save()
                             self.reminderEditAction?(self.reminder)
+                            try! self.context.save()
                             let indexPath = IndexPath(row: 0, section: section.rawValue)
                             tableView.reloadRows(at: [indexPath], with: .automatic)
                         }
