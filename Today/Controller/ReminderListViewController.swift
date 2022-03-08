@@ -21,11 +21,14 @@ class ReminderListViewController: UITableViewController {
     
     static let detailViewControllerIdentifier = "DetailViewController"
     
-   
+    @IBOutlet var progressBar:CircularProgressBar!
     @IBOutlet var filterSegment: UISegmentedControl!
     
     
-
+    
+   private  var progress:Double {
+       return reminderListDataSource!.progress
+    }
     private var filter: ReminderListDataSource.Filter {
         return ReminderListDataSource.Filter(rawValue: filterSegment.selectedSegmentIndex) ?? .today
     }
@@ -52,12 +55,23 @@ class ReminderListViewController: UITableViewController {
             })
         }
     }
+    @objc func updateProgress() {
+        
+        progressBar.setProgress(to: self.progress, withAnimation: true)
+        //progress = progress + 0.06
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         reminderListDataSource = ReminderListDataSource()
         tableView.dataSource = reminderListDataSource
         reminderListDataSource?.retriveData()
+        progressBar.labelSize = 30
+        progressBar.safePercent = 100
+        reminderListDataSource?.calculateProgress()
+        let timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
+        //timer.fire()
+        RunLoop.main.add(timer, forMode: .common)
         tableView.reloadData()
     }
     
@@ -92,6 +106,7 @@ class ReminderListViewController: UITableViewController {
         detailViewController.configure(reminder: reminder, isNew: true, addAction: { reminder in
             if let index = self.reminderListDataSource?.add(reminder) {
                 try! self.context.save()
+                self.reminderListDataSource?.calculateProgress()
                 self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
             }
         })

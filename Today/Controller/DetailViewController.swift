@@ -18,6 +18,7 @@ class DetailViewController:UITableViewController{
     private var reminderEditAction:ReminderChangeAction?
     private var reminderAddAction:ReminderChangeAction?
     private var isNew = false
+    private var reminderListDataSource:ReminderListDataSource?
     
     override func viewDidLoad()
     {

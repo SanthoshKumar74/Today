@@ -32,10 +32,13 @@ class ReminderListDataSource: NSObject{
         }
         
     }
+   
     
     var filter:Filter = .today
     
     var reminderList:[Reminderlist] = []
+    
+    var progress:Double = 0
         
     
     
@@ -61,11 +64,27 @@ class ReminderListDataSource: NSObject{
             return index
         }
     
+    func calculateProgress(){
+        let totalCount = reminderList.count
+        var completed = 0
+        for reminder in reminderList {
+            if reminder.isComplete{
+                completed+=1
+            }
+        }
+        print(totalCount)
+        print(completed)
+        print((Double(completed)/Double(totalCount)))
+        self.progress = (Double(completed)/Double(totalCount))
+        
+    }
+    
     func update(_ reminder: Reminderlist, at row: Int)
     {
         print(reminder)
         let index = self.index(for: row)
                reminderList[index] = reminder
+        calculateProgress()
     }
     
     
@@ -140,7 +159,7 @@ extension ReminderListDataSource:UITableViewDataSource{
 
 extension Reminderlist{
     func dueDateTimeText(for filter: ReminderListDataSource.Filter) -> String {
-        
+
          let timeFormatter: DateFormatter = {
             let timeFormatter = DateFormatter()
             timeFormatter.dateStyle = .none
@@ -161,7 +180,7 @@ extension Reminderlist{
              dateFormatter.dateFormat = String(format: format, "hh:mm a")
              return dateFormatter
          }()
-        
+
         let isInToday = Locale.current.calendar.isDateInToday(date!)
         switch filter {
         case .today:
