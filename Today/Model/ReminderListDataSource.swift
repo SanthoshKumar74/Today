@@ -159,7 +159,15 @@ extension ReminderListDataSource:UITableViewDataSource{
    }
    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-       print("Edited")
+        context.delete(reminderList[indexPath.row])
+        reminderList.remove(at: indexPath.row)
+        try! context.save()
+        tableView.performBatchUpdates({
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }) { (_) in
+            tableView.reloadData()
+        }
+        
    }
     
 }
