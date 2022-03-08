@@ -30,6 +30,7 @@ class ReminderListDataSource: NSObject{
                 return true
             }
         }
+        
     }
     
     var filter:Filter = .today
@@ -121,8 +122,8 @@ extension ReminderListDataSource:UITableViewDataSource{
                 self.update(modifiedReminder, at: indexPath.row)
                 tableView.reloadData()
             }
-           // let dateText = currentReminder.dueDateTimeText(for: filter)
-            cell.configureAction(action: action,title: currentReminder.title!,date: currentReminder.date!.description,isComplete: currentReminder.isComplete)
+            let dateText = currentReminder.dueDateTimeText(for: filter)
+            cell.configureAction(action: action,title: currentReminder.title!,date: dateText,isComplete: currentReminder.isComplete)
             
             return cell
         }
@@ -135,45 +136,43 @@ extension ReminderListDataSource:UITableViewDataSource{
        print("Edited")
    }
     
-  
-    
-    }
+}
 
-extension Reminder {
-
-    static let timeFormatter: DateFormatter = {
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateStyle = .none
-        timeFormatter.timeStyle = .short
-        return timeFormatter
-    }()
-
-    static let futureDateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        return dateFormatter
-    }()
-
-    static let todayDateFormatter: DateFormatter = {
-         let format = NSLocalizedString("'Today at '%@", comment: "format string for dates occurring today")
-         let dateFormatter = DateFormatter()
-         dateFormatter.dateFormat = String(format: format, "hh:mm a")
-         return dateFormatter
-     }()
-    
+extension Reminderlist{
     func dueDateTimeText(for filter: ReminderListDataSource.Filter) -> String {
-        let isInToday = Locale.current.calendar.isDateInToday(date)
+        
+         let timeFormatter: DateFormatter = {
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateStyle = .none
+            timeFormatter.timeStyle = .short
+            return timeFormatter
+        }()
+
+         let futureDateFormatter: DateFormatter = {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .short
+            return dateFormatter
+        }()
+
+         let todayDateFormatter: DateFormatter = {
+             let format = NSLocalizedString("'Today at '%@", comment: "format string for dates occurring today")
+             let dateFormatter = DateFormatter()
+             dateFormatter.dateFormat = String(format: format, "hh:mm a")
+             return dateFormatter
+         }()
+        
+        let isInToday = Locale.current.calendar.isDateInToday(date!)
         switch filter {
         case .today:
-            return Self.timeFormatter.string(from: date)
+            return timeFormatter.string(from: date!)
         case .future:
-            return Self.futureDateFormatter.string(from: date)
+            return futureDateFormatter.string(from: date!)
         case .all:
             if isInToday {
-                return Self.todayDateFormatter.string(from: date)
+                return todayDateFormatter.string(from: date!)
             } else {
-                return Self.futureDateFormatter.string(from: date)
+                return futureDateFormatter.string(from: date!)
             }
         }
     }
