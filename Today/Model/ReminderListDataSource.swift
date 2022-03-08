@@ -163,7 +163,9 @@ extension ReminderListDataSource:UITableViewDataSource{
         reminderList.remove(at: indexPath.row)
         try! context.save()
         tableView.performBatchUpdates({
+            retriveData()
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            calculateProgress()
         }) { (_) in
             tableView.reloadData()
         }
