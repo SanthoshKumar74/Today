@@ -39,12 +39,20 @@ class ReminderListDataSource: NSObject{
     var reminderList:[Reminderlist] = []
     
     var progress:Double = 0
-        
+    
+    
+    var selectedCategory:Category? {
+        didSet{
+            retriveData()
+        }
+    }
+    
     
     
     var filteredReminders: [Reminderlist]
     {
         get{
+            
             return reminderList.filter { filter.shouldInclude(date: $0.date!) }.sorted { $0.date! < $1.date! }
         }
         set{
@@ -52,6 +60,14 @@ class ReminderListDataSource: NSObject{
         }
     }
     
+//    func loadCategory()
+//    {
+//        let fetchRequest =
+//            NSFetchRequest<NSManagedObject>(entityName: "Reminderlist")
+//        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+//        fetchRequest.predicate = categoryPredicate
+//        self.reminderList = try! context.fetch(fetchRequest) as! [Reminderlist]
+//    }
     
     func index(for filteredIndex: Int) -> Int {
        
@@ -107,9 +123,11 @@ class ReminderListDataSource: NSObject{
     func retriveData()
     {
         print("Data Retrived")
-        let fetchRequest =
-            NSFetchRequest<NSManagedObject>(entityName: "Reminderlist")
-        self.reminderList = try! context.fetch(fetchRequest) as! [Reminderlist]
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Reminderlist")
+        print(self.selectedCategory!.name)
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+                fetchRequest.predicate = categoryPredicate
+                self.reminderList = try! context.fetch(fetchRequest) as! [Reminderlist]
         print("Total data count \(reminderList.count)")
         print(filteredReminders.count)
         //let VC = ReminderListViewController()

@@ -24,6 +24,8 @@ class ReminderListViewController: UITableViewController {
     @IBOutlet var progressBar:CircularProgressBar!
     @IBOutlet var filterSegment: UISegmentedControl!
     
+     var category:Category?
+    
     
     
    private  var progress:Double {
@@ -64,6 +66,7 @@ class ReminderListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         reminderListDataSource = ReminderListDataSource()
+        reminderListDataSource?.selectedCategory = category
         tableView.dataSource = reminderListDataSource
         reminderListDataSource?.retriveData()
         progressBar.labelSize = 30

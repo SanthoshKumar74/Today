@@ -24,6 +24,7 @@
 		7F9656A227C8A16A00D67B28 /* ReminderDetailEditDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9656A127C8A16A00D67B28 /* ReminderDetailEditDataSource.swift */; };
 		7F9656A527D0805D00D67B28 /* ReminderDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7F9656A327D0805D00D67B28 /* ReminderDataModel.xcdatamodeld */; };
 		7F9656AD27D7684200D67B28 /* CIrcularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9656AC27D7684200D67B28 /* CIrcularProgressBar.swift */; };
+		7F9656AF27D7AFF400D67B28 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9656AE27D7AFF400D67B28 /* CategoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		7F9656A127C8A16A00D67B28 /* ReminderDetailEditDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderDetailEditDataSource.swift; sourceTree = "<group>"; };
 		7F9656A427D0805D00D67B28 /* ReminderDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ReminderDataModel.xcdatamodel; sourceTree = "<group>"; };
 		7F9656AC27D7684200D67B28 /* CIrcularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIrcularProgressBar.swift; sourceTree = "<group>"; };
+		7F9656AE27D7AFF400D67B28 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				7F96569D27C7A41800D67B28 /* EditDateCell.swift */,
 				7F96569F27C7A42B00D67B28 /* EditNotesCell.swift */,
 				7F9656AC27D7684200D67B28 /* CIrcularProgressBar.swift */,
+				7F9656AE27D7AFF400D67B28 /* CategoryViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 				7F96569427C6236C00D67B28 /* RemainderListCell.swift in Sources */,
 				7F9656A527D0805D00D67B28 /* ReminderDataModel.xcdatamodeld in Sources */,
 				7F9656A027C7A42B00D67B28 /* EditNotesCell.swift in Sources */,
+				7F9656AF27D7AFF400D67B28 /* CategoryViewController.swift in Sources */,
 				7F96569E27C7A41800D67B28 /* EditDateCell.swift in Sources */,
 				7F96567D27C5F64A00D67B28 /* SceneDelegate.swift in Sources */,
 				7F96569827C74CF800D67B28 /* ReminderListDataSource.swift in Sources */,
