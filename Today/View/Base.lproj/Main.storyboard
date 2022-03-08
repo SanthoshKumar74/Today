@@ -3,7 +3,6 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,11 +15,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="Zxs-ts-sg6" userLabel="ProgressBar" customClass="CircularProgressBar" customModule="Today" customModuleProvider="target">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="dl2-8d-myZ">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <viewLayoutGuide key="safeArea" id="mJS-K7-5Hg"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yU9-0w-rF8" userLabel="CIrcularProgressView" customClass="CircularProgressBar" customModule="Today" customModuleProvider="target">
+                                    <rect key="frame" x="132" y="25" width="150" height="150"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="150" id="5aY-sG-aLg"/>
+                                        <constraint firstAttribute="width" constant="150" id="jMc-N6-4gD"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="yU9-0w-rF8" firstAttribute="centerY" secondItem="dl2-8d-myZ" secondAttribute="centerY" id="50T-9E-4ZR"/>
+                                <constraint firstItem="yU9-0w-rF8" firstAttribute="centerX" secondItem="dl2-8d-myZ" secondAttribute="centerX" id="ub7-jX-lRl"/>
+                            </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RemainderListCell" rowHeight="99" id="GUH-GH-GXn" customClass="RemainderListCell" customModule="Today" customModuleProvider="target">
@@ -105,7 +117,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="filterSegment" destination="vsw-8W-HfN" id="ynf-eV-sKB"/>
-                        <outlet property="progressBar" destination="Zxs-ts-sg6" id="PQR-gD-qaf"/>
+                        <outlet property="progressBar" destination="yU9-0w-rF8" id="3YQ-s1-PCp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EgT-tM-ci4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

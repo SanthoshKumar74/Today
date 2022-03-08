@@ -75,7 +75,12 @@ class ReminderListDataSource: NSObject{
         print(totalCount)
         print(completed)
         print((Double(completed)/Double(totalCount)))
+        if totalCount != 0{
         self.progress = (Double(completed)/Double(totalCount))
+        }
+        else{
+            self.progress = 0
+        }
         
     }
     
@@ -95,6 +100,7 @@ class ReminderListDataSource: NSObject{
     func add(_ reminder: Reminderlist)-> Int?{
         reminderList.insert(reminder, at: 0)
         try! context.save()
+        self.calculateProgress()
         return filteredReminders.firstIndex(where: { $0.id == reminder.id })
     }
     
@@ -139,6 +145,7 @@ extension ReminderListDataSource:UITableViewDataSource{
                 print("Cell for row")
                 self.retriveData()
                 self.update(modifiedReminder, at: indexPath.row)
+                self.calculateProgress()
                 tableView.reloadData()
             }
             let dateText = currentReminder.dueDateTimeText(for: filter)
