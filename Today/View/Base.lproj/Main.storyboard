@@ -16,27 +16,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="dl2-8d-myZ">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yU9-0w-rF8" userLabel="CIrcularProgressView" customClass="CircularProgressBar" customModule="Today" customModuleProvider="target">
-                                    <rect key="frame" x="132" y="25" width="150" height="150"/>
+                                    <rect key="frame" x="132" y="50" width="150" height="150"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="150" id="5aY-sG-aLg"/>
                                         <constraint firstAttribute="width" constant="150" id="jMc-N6-4gD"/>
                                     </constraints>
                                 </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FYR-Q8-t4v">
+                                    <rect key="frame" x="186" y="10" width="42" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="yU9-0w-rF8" firstAttribute="centerY" secondItem="dl2-8d-myZ" secondAttribute="centerY" id="50T-9E-4ZR"/>
+                                <constraint firstItem="FYR-Q8-t4v" firstAttribute="centerX" secondItem="dl2-8d-myZ" secondAttribute="centerX" id="Hze-i0-u5e"/>
+                                <constraint firstItem="FYR-Q8-t4v" firstAttribute="top" secondItem="dl2-8d-myZ" secondAttribute="top" constant="10" id="hLp-tf-iSr"/>
                                 <constraint firstItem="yU9-0w-rF8" firstAttribute="centerX" secondItem="dl2-8d-myZ" secondAttribute="centerX" id="ub7-jX-lRl"/>
                             </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RemainderListCell" rowHeight="99" id="GUH-GH-GXn" customClass="RemainderListCell" customModule="Today" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="244.5" width="414" height="99"/>
+                                <rect key="frame" x="0.0" y="294.5" width="414" height="99"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GUH-GH-GXn" id="dIW-6M-Gw4">
                                     <rect key="frame" x="0.0" y="0.0" width="385.5" height="99"/>
@@ -116,6 +124,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="categoryLabel" destination="FYR-Q8-t4v" id="g6z-t1-aCt"/>
                         <outlet property="filterSegment" destination="vsw-8W-HfN" id="ynf-eV-sKB"/>
                         <outlet property="progressBar" destination="yU9-0w-rF8" id="3YQ-s1-PCp"/>
                     </connections>
@@ -255,7 +264,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="pWy-i7-pED" kind="show" identifier="goToReminder" id="jrD-lY-hn3"/>
+                                    <segue destination="pWy-i7-pED" kind="show" identifier="goToReminder" id="vs4-Ct-niK"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

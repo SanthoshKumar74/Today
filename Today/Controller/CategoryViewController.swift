@@ -46,7 +46,6 @@ class CategoryViewController:UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goToReminder", sender: self)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let dataSource = segue.destination as! ReminderListViewController

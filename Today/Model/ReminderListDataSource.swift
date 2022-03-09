@@ -114,6 +114,7 @@ class ReminderListDataSource: NSObject{
     }
     //To-Add-Remainder
     func add(_ reminder: Reminderlist)-> Int?{
+        reminder.parentCategory = self.selectedCategory
         reminderList.insert(reminder, at: 0)
         try! context.save()
         self.calculateProgress()
@@ -124,7 +125,7 @@ class ReminderListDataSource: NSObject{
     {
         print("Data Retrived")
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Reminderlist")
-        print(self.selectedCategory!.name)
+        //print(self.selectedCategory!.name)
         let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
                 fetchRequest.predicate = categoryPredicate
                 self.reminderList = try! context.fetch(fetchRequest) as! [Reminderlist]
