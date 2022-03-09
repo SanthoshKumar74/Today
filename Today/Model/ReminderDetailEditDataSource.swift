@@ -17,6 +17,7 @@ class ReminderDetailEditDataSource:NSObject{
         case title
         case date
         case notes
+        case category
         
         
         var displayText:String{
@@ -27,12 +28,14 @@ class ReminderDetailEditDataSource:NSObject{
                 return "Date"
             case .notes:
                 return "Notes"
+            case .category:
+                return "Category"
             }
         }
         
         var numRows:Int{
             switch self {
-            case .title,.notes:
+            case .title,.notes,.category:
                 return 1
             case .date:
                 return 2
@@ -48,7 +51,9 @@ class ReminderDetailEditDataSource:NSObject{
                         return row == 0 ? "EditDateLabelCell" : "EditDateCell"
                     case .notes:
                         return "EditNotesCell"
-            }
+                    case .category:
+                        return "EditCategoryCell"
+                    }
         }
     }
     
@@ -115,7 +120,17 @@ class ReminderDetailEditDataSource:NSObject{
                     notesCell.configure(notes: reminder.notes) { notes in
                         self.reminder.notes = notes
                         self.reminderEditAction?(self.reminder)
+                        try! self.context.save()
                     }
+            }
+        case .category:
+            if let categoryCell = cell as? EditCategoryCell {
+                categoryCell.configure(category: (reminder.parentCategory?.name) ?? "No Category") { category in
+                    self.reminder.parentCategory? = category
+                    self.reminderEditAction?(self.reminder)
+                    try! self.context.save()
+                    tableView.reloadData()
+                }
             }
         }
         return cell

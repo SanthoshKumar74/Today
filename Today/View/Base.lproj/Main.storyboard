@@ -235,6 +235,28 @@
                                     <outlet property="notesTextView" destination="7de-qI-gFW" id="2KB-Im-yin"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditCategoryCell" rowHeight="10" id="RPx-92-U6z" customClass="EditCategoryCell" customModule="Today" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="592.5" width="414" height="10"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RPx-92-U6z" id="J9B-HQ-Nki">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="10"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v6B-gc-lLU">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="10"/>
+                                        </pickerView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="v6B-gc-lLU" firstAttribute="leading" secondItem="J9B-HQ-Nki" secondAttribute="leading" id="1CE-Gi-DZF"/>
+                                        <constraint firstAttribute="trailing" secondItem="v6B-gc-lLU" secondAttribute="trailing" id="jMg-jw-K8U"/>
+                                        <constraint firstItem="v6B-gc-lLU" firstAttribute="top" secondItem="J9B-HQ-Nki" secondAttribute="top" id="l0G-E0-2Ky"/>
+                                        <constraint firstAttribute="bottom" secondItem="v6B-gc-lLU" secondAttribute="bottom" id="t2x-7e-6DC"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="categoryPicker" destination="v6B-gc-lLU" id="lE4-1x-b31"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="QqE-Jb-Q2C" id="u5z-dp-UcH"/>

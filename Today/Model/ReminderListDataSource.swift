@@ -73,7 +73,7 @@ class ReminderListDataSource: NSObject{
        
         print("Filtered reminders count\(filteredReminders.count)")
         print("index \(filteredIndex)")
-            let filteredReminder = filteredReminders[filteredIndex]
+              let filteredReminder = filteredReminders[filteredIndex]
             guard let index = reminderList.firstIndex(where: { $0.id == filteredReminder.id }) else {
                 fatalError("Couldn't retrieve index in source array")
             }
