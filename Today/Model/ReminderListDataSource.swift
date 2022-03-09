@@ -51,13 +51,11 @@ class ReminderListDataSource: NSObject{
     
     var filteredReminders: [Reminderlist]
     {
-        get{
+
             
             return reminderList.filter { filter.shouldInclude(date: $0.date!) }.sorted { $0.date! < $1.date! }
-        }
-        set{
-            
-        }
+        
+    
     }
     
 //    func loadCategory()
