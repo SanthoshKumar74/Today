@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Category" representedClassName="Category" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="reminderList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Reminderlist" inverseName="parentCategory" inverseEntity="Reminderlist"/>
+    </entity>
     <entity name="Reminderlist" representedClassName="Reminderlist" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="isComplete" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="parentCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="reminderList" inverseEntity="Category"/>
     </entity>
     <elements>
         <element name="Reminderlist" positionX="-36" positionY="9" width="128" height="118"/>
+        <element name="Category" positionX="219.05078125" positionY="7.26953125" width="128" height="73"/>
     </elements>
 </model>

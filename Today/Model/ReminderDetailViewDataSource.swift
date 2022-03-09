@@ -18,6 +18,7 @@ class ReminderDetailViewDataSource: NSObject
         case date
         case notes
         case time
+        case category
         
         static let dateFormatter : DateFormatter =
         {
@@ -55,6 +56,8 @@ class ReminderDetailViewDataSource: NSObject
         case .notes:
             return reminder?.notes
             
+        case .category:
+            return reminder?.parentCategory?.name
         }
     }
     
@@ -69,6 +72,8 @@ class ReminderDetailViewDataSource: NSObject
                         return UIImage(systemName: "clock")
                     case .notes:
                         return UIImage(systemName: "square.and.pencil")
+                    case .category:
+                        return UIImage(systemName: "clock")
                     }
         }
         

@@ -39,25 +39,39 @@ class ReminderListDataSource: NSObject{
     var reminderList:[Reminderlist] = []
     
     var progress:Double = 0
-        
+    
+    
+    var selectedCategory:Category? {
+        didSet{
+            retriveData()
+        }
+    }
+    
     
     
     var filteredReminders: [Reminderlist]
     {
-        get{
-            return reminderList.filter { filter.shouldInclude(date: $0.date!) }.sorted { $0.date! < $1.date! }
-        }
-        set{
+
             
-        }
+            return reminderList.filter { filter.shouldInclude(date: $0.date!) }.sorted { $0.date! < $1.date! }
+        
+    
     }
     
+//    func loadCategory()
+//    {
+//        let fetchRequest =
+//            NSFetchRequest<NSManagedObject>(entityName: "Reminderlist")
+//        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+//        fetchRequest.predicate = categoryPredicate
+//        self.reminderList = try! context.fetch(fetchRequest) as! [Reminderlist]
+//    }
     
     func index(for filteredIndex: Int) -> Int {
        
         print("Filtered reminders count\(filteredReminders.count)")
         print("index \(filteredIndex)")
-            let filteredReminder = filteredReminders[filteredIndex]
+              let filteredReminder = filteredReminders[filteredIndex]
             guard let index = reminderList.firstIndex(where: { $0.id == filteredReminder.id }) else {
                 fatalError("Couldn't retrieve index in source array")
             }
@@ -98,6 +112,7 @@ class ReminderListDataSource: NSObject{
     }
     //To-Add-Remainder
     func add(_ reminder: Reminderlist)-> Int?{
+        reminder.parentCategory = self.selectedCategory
         reminderList.insert(reminder, at: 0)
         try! context.save()
         self.calculateProgress()
@@ -107,9 +122,11 @@ class ReminderListDataSource: NSObject{
     func retriveData()
     {
         print("Data Retrived")
-        let fetchRequest =
-            NSFetchRequest<NSManagedObject>(entityName: "Reminderlist")
-        self.reminderList = try! context.fetch(fetchRequest) as! [Reminderlist]
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Reminderlist")
+        //print(self.selectedCategory!.name)
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+                fetchRequest.predicate = categoryPredicate
+                self.reminderList = try! context.fetch(fetchRequest) as! [Reminderlist]
         print("Total data count \(reminderList.count)")
         print(filteredReminders.count)
         //let VC = ReminderListViewController()
